@@ -1,26 +1,61 @@
-# 🌐 Communication Network Diagnostics and Analysis
+# 🏢 Enterprise Campus Network Architecture & Simulation
 
 ## Overview
-This project is a comprehensive practical analysis of real-world telecommunication network performance, routing behaviors, and latency metrics. The study explores how packets traverse hierarchical networks—specifically the Access, Distribution, and Core layers—across global ISPs. By leveraging command-line diagnostic tools, the project investigates physical packet routing, bandwidth constraints, and severe latency issues such as bufferbloat under varying network loads.
 
-## ✨ Key Features
-* **Path Mapping:** Traced physical packet routes from local nodes to international servers using `traceroute` and geolocated intermediate ISP routers.
-* **Latency Analysis:** Calculated Theoretical vs. Practical Round Trip Time (RTT), accounting for submarine cable routing, transmission, processing, and queuing delays.
-* **Bandwidth Profiling:** Measured and compared network throughput during peak and off-peak hours using `iperf3`.
-* **Bufferbloat Diagnostics:** Evaluated oversized network buffer congestion resulting in severe latency increases (Grade F) using Waveform and `Flent` Real-time Response Under Load (RRUL) tests.
-* **Protocol Inspection:** Outlined the step-by-step connection lifecycle, including DNS resolution, TCP 3-way handshakes, and TLS secure connections.
+This project details the comprehensive design and simulation of a scalable, reliable, and cost-effective Local Area Network (LAN) infrastructure intended for a 20-25 year deployment lifespan at the University of Moratuwa[cite: 4]. 
 
-## 🛠️ Technical Implementation
-The analysis relies entirely on robust network diagnostic software to map and stress-test infrastructure.
-* **Core Tools:** `ping`, `traceroute`, `iperf3`, `Flent`, Waveform.
-* **Protocols Investigated:** TCP, UDP, ICMP, HTTP/HTTPS, DNS, and BGP routing decisions.
-* **Methodology:** Network load was tested across different environments (University vs. Home ISP) to isolate the variables that increase queuing time and degrade the overall Quality of Experience.
+The design is split into two primary phases: a robust **Backbone Network** interconnecting all university faculties via the Center for Information Technology Services (CITeS), and a detailed **Internal LAN Structure** specifically tailored for the Electronic and Telecommunication Engineering (ENTC) building[cite: 4].
+
+![Network Topology Placeholder](media/network_topology.png)
+
+---
+
+## ✨ Core Network Features
+
+*   **Hierarchical Architecture:** Utilizes a highly efficient Core, Distribution, and Access layer model to isolate faults and manage traffic seamlessly[cite: 4].
+*   **High Availability & Redundancy:** The central core deploys two redundant Cisco Catalyst 3650-24PS multilayer switches, eliminating single points of failure[cite: 4].
+*   **Optimized Bandwidth Allocation:** Implements 10 Gbps Single Mode Fiber (SMF) links between the core and distribution layers, scaling down to 1 Gbps fiber or copper depending on specific department data loads[cite: 4].
+*   **Dual-Stack IP Addressing:** 
+    *   **IPv4:** Hierarchical `/24` subnets (e.g., `192.168.1.0/24`) for department isolation and `/30` subnets for point-to-point backbone routing[cite: 4].
+    *   **IPv6:** Future-proofed with standard `/64` prefix subnets assigned to every building[cite: 4].
+*   **Structured Internal LAN (ENTC):** Integrates wired laboratory workstations and wireless access points (AP-PT) managed through patch panels and 24-port access switches connected via fiber uplinks[cite: 4].
+
+---
+
+## 🛠️ Simulation & Verification
+
+The entire network architecture was mapped, configured, and tested using **Cisco Packet Tracer**[cite: 4]. 
+
+### Testing Parameters:
+*   **Intra-VLAN Communication:** Verified zero packet loss for devices communicating within the same department switch (e.g., between ENTC laboratory PCs)[cite: 4].
+*   **Inter-VLAN Routing:** Successfully simulated packet routing across the campus backbone, verifying connectivity between isolated subnets (e.g., from the ENTC network to the Electrical and Civil Engineering networks) with optimal average Round Trip Times (RTT) of under 10ms[cite: 4].
+
+---
+
+## 📦 Bill of Quantities (BOQ) Summary
+
+A production-ready hardware list was generated for the deployment[cite: 4]:
+*   **Active Components:** 13x Cisco 3650-24PS Multilayer Switches, 16x Access Switches, 15x Wireless Access Points[cite: 4].
+*   **Passive Components:** ~5km Single Mode Fiber, ~5km Copper UTP (Cat5e/Cat6), 40x Patch Panels, and 40x Network Racks[cite: 4].
+
+---
+
+## 👥 Team Contributions
+
+*Note: Update names and index numbers as necessary.*
+
+| Name | Index |
+| :--- | :--- |
+| **A.H.D. Karunanayake** | 230321P[cite: 4] |
+| **H.H. Palihena** | 230458P[cite: 4] |
+| **N.P.P. Piyumal** | 230493R[cite: 4] |
+| **M.N.N. Shehan** | 230613M[cite: 4] |
+
+---
 
 ## 📂 Repository Contents
-**Sole Contributor:** Palihena H.H. (Index: 230458P)
 
 ```text
-/Diagnostic_Logs        # Raw output data from iperf3 and Flent RRUL tests
-/Geolocation_Maps       # Mapped traceroute paths and physical router locations
-/Documentation          # Full network analysis report (PDF)
-README.md               # Project overview and testing methodology
+/PacketTracer_Simulations # .pkt files containing the full campus topology
+/Documentation            # Detailed design report and BOQ breakdown
+README.md                 # Project overview and topology details
